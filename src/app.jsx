@@ -1,6 +1,5 @@
 import { ContextProvider } from './Context'
-import { Header } from './Components/Header'
-import { MainGame } from './Components/MainGame'
+import { RoutesPage } from './Routes'
 import './app.css'
 
 export const App = () => {
@@ -8,11 +7,7 @@ export const App = () => {
   return (
     <>
       <ContextProvider>
-        {/* Componente Header */}
-        <Header/>
-
-        {/* Componente MainGame */}
-        <MainGame/>
+        <RoutesPage/>
       </ContextProvider>
     </>
   )

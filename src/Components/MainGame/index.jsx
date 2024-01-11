@@ -1,4 +1,5 @@
 import './maingame.css'
+import { Header } from '../Header'
 import {useContext} from 'react'
 import { Context } from '../../Context'
 
@@ -42,48 +43,52 @@ export const MainGame = () => {
     }
 
     return(
-        <main>
+        <>
+            {/* Componente Header */}
+            <Header/>
+            <main>
 
-            {/* ModalStartPlay */}
-            <div id='modalStart'>
-                {/* titulo do modal */}
-                <h1>Bem-vindo ao jogo</h1>
+                {/* ModalStartPlay */}
+                <div id='modalStart'>
+                    {/* titulo do modal */}
+                    <h1>Bem-vindo ao jogo</h1>
 
-                {/* paragrafo de regra */}
-                <h2>Regras:</h2>
+                    {/* paragrafo de regra */}
+                    <h2>Regras:</h2>
 
-                {/* Regras */}
-                <ul>
-                    <li>Ao clicar em start o jogo irá começar.</li>
-                    <li>Seu objetivo é clicar no quadro onde o Ralph está.</li>
-                    <li>Caso clique no quadro onde o Ralph não está, perde uma vida de três.</li>
-                    <li>Lembrando que a cada 60 segundos passados temos o <strong>timeout</strong>, e a cada retorno do timeOut o tempo que o Ralph aparece é dividido em 1.25!</li>
-                    <li>Faça a maior pontuação que puder! 😉</li>
-                </ul>
+                    {/* Regras */}
+                    <ul>
+                        <li>Ao clicar em start o jogo irá começar.</li>
+                        <li>Seu objetivo é clicar no quadro onde o Ralph está.</li>
+                        <li>Caso clique no quadro onde o Ralph não está, perde uma vida de três.</li>
+                        <li>Lembrando que a cada 60 segundos passados temos o <strong>timeout</strong>, e a cada retorno do timeOut o tempo que o Ralph aparece é dividido em 1.25!</li>
+                        <li>Faça a maior pontuação que puder! 😉</li>
+                    </ul>
 
-                {/* Startar o jogo */}
-                <button className='buttonCss' id='startPlay' onClick={startPlaying}>Start</button>
-            </div>
+                    {/* Startar o jogo */}
+                    <button className='buttonCss' id='startPlay' onClick={startPlaying}>Start</button>
+                </div>
 
-            {/* ModalGamerOverPlay */}
-            <ModalGamerOverPlay points={points} setPoints={setPoints} setLives={setLives}/>
+                {/* ModalGamerOverPlay */}
+                <ModalGamerOverPlay points={points} setPoints={setPoints} setLives={setLives}/>
 
-            {/* TimeOutModal */}
-            <TimeOut points={points}/>
+                {/* TimeOutModal */}
+                <TimeOut points={points}/>
 
-            {/* gameInterface */}
-            <div id="gameInterface">
-                <div className="painel" id='0' onClick={(e) => click(e.target)}></div>
-                <div className="painel" id='1' onClick={(e) => click(e.target)}></div>
-                <div className="painel" id='2' onClick={(e) => click(e.target)}></div>
-                <div className="painel" id='3' onClick={(e) => click(e.target)}></div>
-                <div className="painel" id='4' onClick={(e) => click(e.target)}></div>
-                <div className="painel" id='5' onClick={(e) => click(e.target)}></div>
-                <div className="painel" id='6' onClick={(e) => click(e.target)}></div>
-                <div className="painel" id='7' onClick={(e) => click(e.target)}></div>
-                <div className="painel" id='8' onClick={(e) => click(e.target)}></div>
-            </div>
-        </main>
+                {/* gameInterface */}
+                <div id="gameInterface">
+                    <div className="painel" id='0' onClick={(e) => click(e.target)}></div>
+                    <div className="painel" id='1' onClick={(e) => click(e.target)}></div>
+                    <div className="painel" id='2' onClick={(e) => click(e.target)}></div>
+                    <div className="painel" id='3' onClick={(e) => click(e.target)}></div>
+                    <div className="painel" id='4' onClick={(e) => click(e.target)}></div>
+                    <div className="painel" id='5' onClick={(e) => click(e.target)}></div>
+                    <div className="painel" id='6' onClick={(e) => click(e.target)}></div>
+                    <div className="painel" id='7' onClick={(e) => click(e.target)}></div>
+                    <div className="painel" id='8' onClick={(e) => click(e.target)}></div>
+                </div>
+            </main>
+        </>    
     )
 }
 
