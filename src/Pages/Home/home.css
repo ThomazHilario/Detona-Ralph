@@ -1,0 +1,98 @@
+#home{
+    background-image: url('../../images/wall.png');
+    height: 100vh;
+
+    box-shadow: inset 1px 1px 1px 400px rgba(0, 0, 0, 0.527);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* formulario cadastro */
+#cadastro{
+    background-color: rgba(122, 89, 17, 0.538);
+    height: 250px;
+    width: 300px;
+    padding: 20px 10px;
+
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+    gap: 5px;
+
+    border-radius: 8px;
+
+}
+
+/* div dos campos */
+#cadastro > div{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+/* Label */
+#cadastro > div > label{
+    font-size: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+}
+
+#cadastro > div > input{
+    width: 250px;
+    height: 30px;
+
+    font-size: 15px;
+
+    outline: 0px;
+    border-radius: 3px; 
+    border: 0px;
+
+
+    padding-left: 5px;
+
+    background-color: rgba(0, 0, 0, 0.482);
+    color: white;
+
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+   
+}
+
+/* button cadastrar */
+#cadastro > div > button{
+    width: 250px;
+    height: 40px;
+
+    background-image: url('../../images/wall.png');
+
+    font-size: 25px;
+    font-weight: bold;
+
+    border: 0px;
+    border-radius: 3px;
+
+    color: white;
+
+    cursor: pointer;
+}
+
+#cadastro > div > a{
+    text-decoration: none;
+    text-align: center;
+
+    color: white;
+
+    font-size: 20px;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+
+    background-color: rgb(149, 126, 43);
+    padding: 8px;
+
+    border-radius: 3px;
+
+    margin-top: 10px;
+}

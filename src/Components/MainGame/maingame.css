@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
-main{
+#containerGame{
     height: calc(100vh - 13.5vh);
     background-color: #ee82ee;
     display: flex;

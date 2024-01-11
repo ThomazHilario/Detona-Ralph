@@ -46,7 +46,9 @@ export const MainGame = () => {
         <>
             {/* Componente Header */}
             <Header/>
-            <main>
+
+            {/* container game */}
+            <main id='containerGame'>
 
                 {/* ModalStartPlay */}
                 <div id='modalStart'>
