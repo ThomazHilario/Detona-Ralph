@@ -1,7 +1,8 @@
 import {useState} from 'react'
 import {Link, useNavigate} from 'react-router-dom'
-import { auth } from '../../Firebase'
+import { database, auth } from '../../Firebase'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
+import { doc, setDoc, getDoc } from 'firebase/firestore'
 import './home.css'
 export const Home = () => {
 
@@ -17,6 +18,33 @@ export const Home = () => {
     //state - password
     const [password, setPassword] = useState('')
 
+    // rankingUser - Cadastrando usuario ao ranking
+    async function rankingUser(uid){
+        try {
+
+            // Pegando a referência ao banco de dados do RankingUsers
+            const docRef = doc(database,'Ranking','RankingUsers')
+            
+            // Buscando a coleção do ranking dos usuarios
+            const docSnap = await getDoc(docRef)
+
+            // Criando uma variavel que armazenará todos os usuarios
+            const usersgeral = docSnap.data().Users
+
+            // Jogando para dentro do array dos usuarios o novo usuario cadastrado
+            usersgeral.push({id:uid,name:nickname,points:0})
+
+            // Inserindo o novo array de usuarios ao banco de dados de ranking
+            await setDoc(doc(database,'Ranking','RankingUsers'),{
+                Users:usersgeral
+            })
+            
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+
     // Cadastrando usuario ao banco
     async function singIn(e){
         try {
@@ -24,11 +52,20 @@ export const Home = () => {
             e.preventDefault()
 
             if(nickname !== ''){
+                // Cadastrando usuario ao banco de dados
                 const user = await createUserWithEmailAndPassword(auth, email, password) 
 
-                user.user.name = nickname
+                // Colocando o nickname no usuario
+                user.user.providerData[0].displayName = nickname
                 
-                navigate(`/game/${user.user.uid}`)
+                // Salvando dados na localStorage
+                localStorage.setItem('@user',JSON.stringify(user.user))
+
+                // Adicionando usuario ao Ranking
+                rankingUser(user.user.uid)
+
+                // Navegando ate o jogo
+                navigate('/game')
             }else{
                 alert('preencha o campo de nickname')   
             }
@@ -46,17 +83,17 @@ export const Home = () => {
 
                 <div>
                     <label>Nickname:</label>
-                    <input type="text" onChange={(e) => setNickname(e.target.value)}/>
+                    <input type="text"  value={nickname} onChange={(e) => setNickname(e.target.value)}/>
                 </div>
 
                 <div>
                     <label>Email:</label>
-                    <input type="text" onChange={(e) => setEmail(e.target.value)}/>
+                    <input type="text"  value={email} onChange={(e) => setEmail(e.target.value)}/>
                 </div>
 
                 <div>
                     <label>Password:</label>
-                    <input type="password" onChange={(e) => setPassword(e.target.value)}/>
+                    <input type="password"  value={password} onChange={(e) => setPassword(e.target.value)}/>
                 </div>
 
                 <div>
