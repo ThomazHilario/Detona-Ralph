@@ -1,10 +1,28 @@
 import './login.css'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import {database, auth} from '../../Firebase'
-import { signInWithEmailAndPassword } from 'firebase/auth'
+import {auth} from '../../Firebase'
+import { signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth'
 
 export const Login = () => {
+
+    // Verificando se o usuario ainda esta logado
+    useEffect(() => {
+
+        // Função de verificação
+        function loginAuth(){
+            onAuthStateChanged(auth,(user) => {
+                if(user){
+                    return navigate('/game')
+                } else{
+                    return false
+                }
+            })
+        }
+
+        // Executando loginAuth
+        loginAuth()
+    },[])
 
     // navigate
     const navigate = useNavigate()
