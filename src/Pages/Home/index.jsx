@@ -3,6 +3,7 @@ import {Link, useNavigate} from 'react-router-dom'
 import { database, auth } from '../../Firebase'
 import { createUserWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth'
 import { doc, setDoc, getDoc } from 'firebase/firestore'
+import { toast } from 'react-toastify'
 import './home.css'
 export const Home = () => {
 
@@ -13,8 +14,16 @@ export const Home = () => {
         function loginAuth(){
             onAuthStateChanged(auth,(user) => {
                 if(user){
+                    // Alterando o valor da state loading
+                    setLoading(false)
+
+                    // Navegando ate a rota do jogo
                     return navigate('/game')
+                    
                 } else{
+                    // Alterando o valor da state loading
+                    setLoading(false)
+
                     return false
                 }
             })
@@ -23,6 +32,9 @@ export const Home = () => {
         // Executando loginAuth
         loginAuth()
     },[])
+
+    // state - loading
+    const [loading, setLoading] = useState(true)
 
     // navigate
     const navigate = useNavigate()
@@ -97,29 +109,33 @@ export const Home = () => {
     return(
         <main id="home">
 
-            <form id="cadastro">
+            { loading === false ? 
+                <form id="cadastro">
 
-                <div>
-                    <label>Nickname:</label>
-                    <input type="text"  value={nickname} onChange={(e) => setNickname(e.target.value)}/>
-                </div>
+                    <div>
+                        <label>Nickname:</label>
+                        <input type="text"  value={nickname} onChange={(e) => setNickname(e.target.value)}/>
+                    </div>
 
-                <div>
-                    <label>Email:</label>
-                    <input type="text"  value={email} onChange={(e) => setEmail(e.target.value)}/>
-                </div>
+                    <div>
+                        <label>Email:</label>
+                        <input type="text"  value={email} onChange={(e) => setEmail(e.target.value)}/>
+                    </div>
 
-                <div>
-                    <label>Password:</label>
-                    <input type="password"  value={password} onChange={(e) => setPassword(e.target.value)}/>
-                </div>
+                    <div>
+                        <label>Password:</label>
+                        <input type="password"  value={password} onChange={(e) => setPassword(e.target.value)}/>
+                    </div>
 
-                <div>
-                    <button onClick={singIn}>Cadastrar</button>
-                    <Link to='/login' className='navigateLogin'>Já possui uma conta? <strong>Entrar agora</strong></Link>
-                    <Link to='/game' className='playGame'>Jogar sem Cadastro</Link>
-                </div>
-            </form>
+                    <div>
+                        <button onClick={singIn}>Cadastrar</button>
+                        <Link to='/login' className='navigateLogin'>Já possui uma conta? <strong>Entrar agora</strong></Link>
+                        <Link to='/game' className='playGame'>Jogar sem Cadastro</Link>
+                    </div>
+                </form> :
+                
+                <div id='loadingModal'>Loading...</div>
+            }
 
         </main>
     )
