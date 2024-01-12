@@ -130,6 +130,7 @@ export const MainGame = () => {
 // Componente de modalGamerOver
 function ModalGamerOverPlay({points, setLives, setPoints,player,setPlayer}){
 
+    // Salvando os pontos do player
     async function savePointsPlayer(){
         try {
             // Montando referencia ao banco de dados
