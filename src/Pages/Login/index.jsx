@@ -13,8 +13,16 @@ export const Login = () => {
         function loginAuth(){
             onAuthStateChanged(auth,(user) => {
                 if(user){
+
+                    // Alterando a state loading
+                    setLoading(false)
+
                     return navigate('/game')
                 } else{
+
+                    // Alterando a state loading
+                    setLoading(false)
+
                     return false
                 }
             })
@@ -26,6 +34,9 @@ export const Login = () => {
 
     // navigate
     const navigate = useNavigate()
+
+    // state - loading
+    const [loading,setLoading] = useState(true)
 
     // state - email
     const [email, setEmail] = useState('')
@@ -56,24 +67,28 @@ export const Login = () => {
 
     return(
         <main className="mainLogin">
-            <form>
+            {loading === false ? 
+                <form>
 
-                <div>
-                    <label>Email:</label>
-                    <input type="text" value={email} onChange={(e) => setEmail(e.target.value)}/>
-                </div>
+                    <div>
+                        <label>Email:</label>
+                        <input type="text" value={email} onChange={(e) => setEmail(e.target.value)}/>
+                    </div>
 
-                <div>
-                    <label>Password:</label>
-                    <input type="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
-                </div>
+                    <div>
+                        <label>Password:</label>
+                        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
+                    </div>
 
-                <div>
-                    <button onClick={singInUser}>Entrar</button>
-                    <Link to='/' className='navigateHome'>Não possui uma conta ? <strong>Cadastre-se</strong></Link>
-                </div>
+                    <div>
+                        <button onClick={singInUser}>Entrar</button>
+                        <Link to='/' className='navigateHome'>Não possui uma conta ? <strong>Cadastre-se</strong></Link>
+                    </div>
 
-            </form>
+                </form> :
+                
+                <div id='loadingModal'>Loading...</div>
+            }
         </main>
     )
 }
