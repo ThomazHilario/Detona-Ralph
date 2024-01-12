@@ -1,13 +1,47 @@
 import './maingame.css'
 import { Header } from '../Header'
-import {useContext} from 'react'
+import { useContext, useState, useEffect } from 'react'
 import { Context } from '../../Context'
+import { database } from '../../Firebase'
+import { doc, getDoc, updateDoc } from 'firebase/firestore'
+import { Link } from 'react-router-dom'
 
 const gameSettings = {
     gameSpeed:600,
+    stopverification:null
 }
 
 export const MainGame = () => {
+
+    useEffect(() => {
+
+        if(localStorage.getItem('@user') !== null){
+
+            // Pegando usuario armazenado na localStorage
+            const user = JSON.parse(localStorage.getItem('@user'))
+
+            async function getPlayer(){
+                // Montando referencia ao banco de dados
+                const docRef = doc(database,'Ranking','RankingUsers')
+
+                // Fazendo a requisicao ao banco de dados
+                const docSnap = await getDoc(docRef)
+
+                // Buscando player logado
+                const player = docSnap.data().Users.filter(element => element.id === user.uid)
+
+                // Salvando na state player, o player logado
+                setPlayer(player[0])
+            }
+
+            // Executando getPlayer
+            getPlayer()
+        }
+
+    },[])
+
+    // state - Player
+    const [player,setPlayer] = useState({})
 
     // Contextos globais
     const {points, setPoints, lives,setLives} = useContext(Context)
@@ -21,7 +55,6 @@ export const MainGame = () => {
     function loseLives(){
         setLives(lives - 1)
     }
-
 
     // Click no painel
     function click(tag){
@@ -72,7 +105,7 @@ export const MainGame = () => {
                 </div>
 
                 {/* ModalGamerOverPlay */}
-                <ModalGamerOverPlay points={points} setPoints={setPoints} setLives={setLives}/>
+                <ModalGamerOverPlay points={points} setPoints={setPoints} setLives={setLives} player={player} setPlayer={setPlayer}/>
 
                 {/* TimeOutModal */}
                 <TimeOut points={points}/>
@@ -95,9 +128,42 @@ export const MainGame = () => {
 }
 
 // Componente de modalGamerOver
-function ModalGamerOverPlay({points, setLives, setPoints}){
+function ModalGamerOverPlay({points, setLives, setPoints,player,setPlayer}){
+
+    async function savePointsPlayer(){
+        try {
+            // Montando referencia ao banco de dados
+            const docRef = doc(database,'Ranking','RankingUsers')
+
+            // Fazendo a requisicao ao banco de dados
+            const docSnap = await getDoc(docRef)
+
+            // Armazenando collection a uma variavel
+            const usersRanking = docSnap.data().Users
+
+            // Alterando os pontos
+            usersRanking.filter(i => i.id === player.id && i.points < player.points ? i.points = player.points : i)
+
+            // Salvando no banco de dados
+            await updateDoc(docRef,{
+                Users:usersRanking
+            })
+
+        } catch (e) {
+            console.log(e)
+        }
+    }
 
     function startPlayAgain(){
+        // Salvando os pontos dp player
+        player.points = points
+
+        // Setando na state player
+        setPlayer(player)
+        
+        // Salvando no banco de dados
+        savePointsPlayer()
+
         // Resetando vidas e pontos
         setPoints(0)
         setLives(3)
@@ -122,10 +188,10 @@ function ModalGamerOverPlay({points, setLives, setPoints}){
 
             {/* startGame */}
             <button className='buttonCss' onClick={startPlayAgain}>Play Again</button>
+            <Link className='buttonCss' to='/ranking'>Ranking</Link>
         </div>
     )
 }
-
 
 
 // Componente TimeOut
@@ -188,7 +254,7 @@ function startGame(){
     },1000)
 
     // Verificando o detonaRalph eo timerSeconds
-    setInterval(() => {
+    let verification = setInterval(() => {
     
         if(document.getElementById('time').textContent === '0'){
 
@@ -218,3 +284,21 @@ function startGame(){
         }
     },10)
 }
+
+/* forma alternativa
+
+    // Percorrendo os players
+            for(let i = 0;i < usersRanking.length; i++){
+                // encontrando o layer logado 
+                if(usersRanking[i].id === player.id){
+                    
+                    // caso a pontuacao seja maior que a anterior
+                    if(player.points > usersRanking[i].points){
+
+                        // Atualizamos os points
+                        usersRanking[i].points = player.points
+                    } 
+                } 
+            }
+
+ */
