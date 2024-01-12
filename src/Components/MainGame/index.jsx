@@ -2,9 +2,16 @@ import './maingame.css'
 import { Header } from '../Header'
 import { useContext, useState, useEffect } from 'react'
 import { Context } from '../../Context'
-import { database } from '../../Firebase'
+import { database, auth } from '../../Firebase'
+import { signOut } from 'firebase/auth'
 import { doc, getDoc, updateDoc } from 'firebase/firestore'
 import { Link } from 'react-router-dom'
+
+// toast
+import { toast } from 'react-toastify'
+
+// icon logOut
+import { BiSolidLogOut } from "react-icons/bi";
 
 const gameSettings = {
     gameSpeed:600,
@@ -36,6 +43,8 @@ export const MainGame = () => {
 
             // Executando getPlayer
             getPlayer()
+        }else{
+            document.getElementById('btnlogOutGame').style.display = 'none'
         }
 
     },[])
@@ -73,6 +82,28 @@ export const MainGame = () => {
         document.getElementById('gameInterface').style.display = 'grid'
         
         startGame()
+    }
+
+    // logOutGame
+    async function logOutGame(button){
+        try {
+            // Alterando o display do button
+            button.style.display = 'none'
+
+            // Deslogando a conta
+            await signOut(auth)
+
+            // Removendo dados da localStorage
+            if(localStorage.getItem('@user') !== null){
+                localStorage.removeItem('@user')
+            }
+
+            // Notificação de saida
+            toast.success(player.name + ' saiu')
+            
+        } catch (e) {
+            console.log(e)
+        }
     }
 
     return(
@@ -122,6 +153,9 @@ export const MainGame = () => {
                     <div className="painel" id='7' onClick={(e) => click(e.target)}></div>
                     <div className="painel" id='8' onClick={(e) => click(e.target)}></div>
                 </div>
+
+                {/* logoutGame */}
+                <button id='btnlogOutGame' onClick={(e) => logOutGame(e.target)}><BiSolidLogOut size={100} color='white'/></button>
             </main>
         </>    
     )
@@ -156,14 +190,17 @@ function ModalGamerOverPlay({points, setLives, setPoints,player,setPlayer}){
     }
 
     function startPlayAgain(){
-        // Salvando os pontos dp player
-        player.points = points
+        // Caso tenha @user na localStorage
+        if(localStorage.getItem('@user') !== null){
+            // Salvando os pontos dp player
+            player.points = points
 
-        // Setando na state player
-        setPlayer(player)
-        
-        // Salvando no banco de dados
-        savePointsPlayer()
+            // Setando na state player
+            setPlayer(player)
+            
+            // Salvando no banco de dados
+            savePointsPlayer()
+        }
 
         // Resetando vidas e pontos
         setPoints(0)

@@ -134,3 +134,13 @@
     height: 40px;
     width: 120px;
 }
+
+#btnlogOutGame{
+    background-color: transparent;
+    cursor: pointer;
+    border: 0px;
+
+    position: absolute;
+    left: 90%;
+    top: 80%;
+}
