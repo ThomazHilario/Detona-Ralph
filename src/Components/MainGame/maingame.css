@@ -16,10 +16,11 @@
     border-radius: 5px;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
-    gap: 15px;
+    gap: 20px;
     width: 450px;
-    height: 350px;
+    height: 390px;
     font-family: 'Press Start 2P', system-ui;
 }
 
@@ -37,7 +38,7 @@
     font-family: Arial, Helvetica, sans-serif;
     text-align: justify;
     padding: 0px 20px;
-    margin: 2px 0px;
+    margin: 5px 0px;
 }
 
 #modalGamerOverPlay{
