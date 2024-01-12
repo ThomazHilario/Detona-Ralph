@@ -62,7 +62,23 @@
 #modalGamerOverPlay > h3{
     font-family: 'Press Start 2P', system-ui;
 }
+#containerBtn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
 
+#containerBtn > a{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    color: black;
+    text-decoration: none;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 500;
+}
 #timeOutModal{
     display: none;
     background-color: rgb(168, 97, 40);
