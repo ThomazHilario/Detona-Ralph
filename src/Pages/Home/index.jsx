@@ -98,7 +98,8 @@ export const Home = () => {
 
                 <div>
                     <button onClick={singIn}>Cadastrar</button>
-                    <Link to='/game'>Jogar sem Cadastro</Link>
+                    <Link to='/login' className='navigateLogin'>Já possui uma conta? <strong>Entrar agora</strong></Link>
+                    <Link to='/game' className='playGame'>Jogar sem Cadastro</Link>
                 </div>
             </form>
 

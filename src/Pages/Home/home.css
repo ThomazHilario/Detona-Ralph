@@ -79,7 +79,7 @@
     cursor: pointer;
 }
 
-#cadastro > div > a{
+#cadastro > div > .playGame{
     text-decoration: none;
     text-align: center;
 
@@ -94,5 +94,19 @@
 
     border-radius: 3px;
 
-    margin-top: 10px;
+    margin-top: 5px;
+}
+
+#cadastro > div > .navigateLogin{
+    text-decoration: none;
+    text-align: center;
+
+    color: white;
+
+    font-size: 14px;
+    font-family: Arial, Helvetica, sans-serif;
+
+    border-radius: 3px;
+
+    margin-top: 5px;
 }
