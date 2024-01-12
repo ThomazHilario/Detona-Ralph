@@ -220,7 +220,7 @@ function TimeOut({ points }){
             {/* Points */}
             <h3>points:{points}</h3>
 
-            <button className='buttonCss' onClick={playReturn}>Return Play in 2x Speed</button>
+            <button className='buttonCss' id='btn-timeout' onClick={playReturn}>Return Play in 2x Speed</button>
         </div>
     )
 }

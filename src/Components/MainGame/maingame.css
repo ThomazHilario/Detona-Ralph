@@ -112,3 +112,8 @@
     background-repeat: no-repeat;
     background-position: center center;
 }
+
+#btn-timeout{
+    height: 40px;
+    width: 120px;
+}
