@@ -1,7 +1,7 @@
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import { MainGame } from '../Components/MainGame'
 import { Home } from '../Pages/Home'
-import { Login } from '../Pages/Login'
+import Login from '../Pages/Login'
 import { Ranking } from '../Pages/Ranking'
 
 // Componente de Rotas
@@ -11,7 +11,8 @@ export const RoutesPage = () => {
             <Routes>
                 <Route path='/' element={ <Home/> } />
                 <Route path='/login' element = { <Login/> }/>
-
+                <Route path='/game' element={ <MainGame/> }/>
+                <Route path='/ranking' element={ <Ranking/> }/>
             </Routes>
         </BrowserRouter>
     )

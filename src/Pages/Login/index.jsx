@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import {auth} from '../../Firebase'
 import { signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth'
 
-export const Login = () => {
+export default function Login(){
 
     // Verificando se o usuario ainda esta logado
     useEffect(() => {
