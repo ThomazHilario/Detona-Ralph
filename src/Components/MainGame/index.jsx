@@ -327,8 +327,6 @@ function startGame(){
                 document.getElementById('timeOutModal').style.display = 'flex'
                 document.getElementById('gameInterface').style.display = 'none'
 
-                // Alterando o valor do tempo para 60 segundos
-                document.getElementById('time').textContent = '60'
 
             } else if(document.getElementById('lives').textContent === 'X0'){
 
