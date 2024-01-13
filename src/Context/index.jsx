@@ -12,7 +12,7 @@ export const ContextProvider = ({ children }) => {
     const [lives, setLives] = useState(3)
 
     return(
-        <Context.Provider value={{points, setPoints, timer, setTimer, lives, setLives}}>
+        <Context.Provider value={{points, setPoints, lives, setLives}}>
             {children}
         </Context.Provider>
     )
