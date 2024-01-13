@@ -49,7 +49,7 @@ export const Ranking = () => {
                     {/* corpo da tabela*/}
                     <tbody>
                         {/* Percorrendo array da state players */}
-                        {players.map((player,idx) => {
+                        {players.length > 0 ? players.map((player,idx) => {
                             return(
                                 <tr key={idx}>
                                     <td>{idx + 1}</td>
@@ -57,7 +57,7 @@ export const Ranking = () => {
                                     <td>{player.points}</td>
                                 </tr>
                             )
-                        })}
+                        }) : <div></div>}
                     </tbody>
 
 
