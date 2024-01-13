@@ -15,7 +15,8 @@ import { BiSolidLogOut } from "react-icons/bi";
 
 const gameSettings = {
     gameSpeed:600,
-    stopverification:null
+    stop:false,
+
 }
 
 export const MainGame = () => {
@@ -113,13 +114,12 @@ export const MainGame = () => {
                 // limpando os intervalos de tempo do timer e do detona ralph
                 clearInterval(detonaRalph)
                 clearInterval(timerSeconds)
-
+               
                 // Alterando display do modal e da gameInterface
                 document.getElementById('timeOutModal').style.display = 'flex'
                 document.getElementById('gameInterface').style.display = 'none'
-
             } else if(document.getElementById('lives').textContent === 'X0'){
-
+    
                 // limpando os intervalos de tempo do timer e do detona ralph
                 clearInterval(detonaRalph)
                 clearInterval(timerSeconds)
@@ -127,11 +127,14 @@ export const MainGame = () => {
                 // Alterando display do modal e da gameInterface
                 document.getElementById('modalGamerOverPlay').style.display = 'flex'
                 document.getElementById('gameInterface').style.display = 'none'
-
+    
                 // Alterando o valor do tempo para 60 segundos
                 document.getElementById('time').textContent = '60'
+    
             }
+        
         },10)
+
     }
 
     // StartGame - iniciando o jogo
@@ -195,7 +198,7 @@ export const MainGame = () => {
                 </div>
 
                 {/* ModalGamerOverPlay */}
-                <ModalGamerOverPlay points={points} setPoints={setPoints} setLives={setLives} player={player} setPlayer={setPlayer} initLoad={initLoad} startGame={startGame}/>
+                <ModalGamerOverPlay points={points} setPoints={setPoints} setLives={setLives} player={player} setPlayer={setPlayer} initLoad={initLoad} startGame={startGame} />
 
                 {/* TimeOutModal */}
                 <TimeOut points={points} initLoad={initLoad} startGame={startGame}/>
@@ -291,7 +294,6 @@ function ModalGamerOverPlay({points, setLives, setPoints,player,setPlayer, start
         startGame()
     }
 
-
     return(
         <div id='modalGamerOverPlay'>
             {/* Titulo */}
@@ -304,6 +306,7 @@ function ModalGamerOverPlay({points, setLives, setPoints,player,setPlayer, start
             <div id='containerBtn'>
                 {/* startGame */}
                 <button className='buttonCss' onClick={startPlayAgain}>Play Again</button>
+                <button className='buttonCss' onClick={passando}>next</button>
                 <Link className='buttonCss' to='/ranking' target='blank' onClick={savePoints}>Ranking</Link>
             </div>
         </div>
