@@ -79,64 +79,6 @@ export const MainGame = () => {
         
     }
 
-    // Função que será executada durante um intervalo de tempo
-    function initLoad(){
-
-        // capturando paineis
-        const paineis = document.querySelectorAll('.painel')
-
-        // Limpando o ralph de cada painel
-        paineis.forEach(painel => {
-            painel.classList.remove('ralph')
-        })
-
-        // Escolhendo um painel para colocar o ralph
-        paineis[Math.floor(Math.random() * 9)].classList.add('ralph')
-
-    }
-
-    // StartGame
-    function startGame(){
-        // Executando o detonaalph
-        const detonaRalph = setInterval(initLoad, gameSettings.gameSpeed)
-        
-        // Executando o timerSeconds
-        const timerSeconds = setInterval(() => {
-            document.getElementById('time').textContent = parseFloat(document.getElementById('time').textContent) - 1
-        },1000)
-
-        // Verificando o detonaRalph eo timerSeconds
-        let verification = setInterval(() => {
-        
-            if(document.getElementById('time').textContent === '0'){
-
-                // limpando os intervalos de tempo do timer e do detona ralph
-                clearInterval(detonaRalph)
-                clearInterval(timerSeconds)
-
-                // Alterando display do modal e da gameInterface
-                document.getElementById('timeOutModal').style.display = 'flex'
-                document.getElementById('gameInterface').style.display = 'none'
-
-                // Alterando o valor do tempo para 60 segundos
-                document.getElementById('time').textContent = '60'
-
-            } else if(document.getElementById('lives').textContent === 'X0'){
-
-                // limpando os intervalos de tempo do timer e do detona ralph
-                clearInterval(detonaRalph)
-                clearInterval(timerSeconds)
-
-                // Alterando display do modal e da gameInterface
-                document.getElementById('modalGamerOverPlay').style.display = 'flex'
-                document.getElementById('gameInterface').style.display = 'none'
-
-                // Alterando o valor do tempo para 60 segundos
-                document.getElementById('time').textContent = '60'
-            }
-        },10)
-    }
-
     // StartGame - iniciando o jogo
     function startPlaying(){
         document.getElementById('modalStart').style.display = 'none'
@@ -198,10 +140,10 @@ export const MainGame = () => {
                 </div>
 
                 {/* ModalGamerOverPlay */}
-                <ModalGamerOverPlay points={points} setPoints={setPoints} setLives={setLives} player={player} setPlayer={setPlayer} initLoad={initLoad} startGame={startGame}/>
+                <ModalGamerOverPlay points={points} setPoints={setPoints} setLives={setLives} player={player} setPlayer={setPlayer}/>
 
                 {/* TimeOutModal */}
-                <TimeOut points={points} initLoad={initLoad} startGame={startGame}/>
+                <TimeOut points={points} initLoad={initLoad}/>
 
                 {/* gameInterface */}
                 <div id="gameInterface">
@@ -224,7 +166,7 @@ export const MainGame = () => {
 }
 
 // Componente de modalGamerOver
-function ModalGamerOverPlay({points, setLives, setPoints,player,setPlayer, startGame}){
+function ModalGamerOverPlay({points, setLives, setPoints,player,setPlayer}){
 
     // Salvando os pontos do player
     async function savePointsPlayer(){
@@ -315,7 +257,7 @@ function ModalGamerOverPlay({points, setLives, setPoints,player,setPlayer, start
 
 
 // Componente TimeOut
-function TimeOut({ points, startGame }){
+function TimeOut({ points }){
 
     // Retornando pos timeOut
     function playReturn(){
@@ -346,7 +288,63 @@ function TimeOut({ points, startGame }){
 
 
 
+// Função que será executada durante um intervalo de tempo
+function initLoad(){
 
+    // capturando paineis
+    const paineis = document.querySelectorAll('.painel')
+
+    // Limpando o ralph de cada painel
+       paineis.forEach(painel => {
+        painel.classList.remove('ralph')
+    })
+
+    // Escolhendo um painel para colocar o ralph
+    paineis[Math.floor(Math.random() * 9)].classList.add('ralph')
+
+}
+
+// StartGame
+function startGame(){
+        // Executando o detonaalph
+        const detonaRalph = setInterval(initLoad, gameSettings.gameSpeed)
+        
+        // Executando o timerSeconds
+        const timerSeconds = setInterval(() => {
+            document.getElementById('time').textContent = parseFloat(document.getElementById('time').textContent) - 1
+        },1000)
+
+        // Verificando o detonaRalph eo timerSeconds
+        let verification = setInterval(() => {
+        
+            if(document.getElementById('time').textContent === '0'){
+
+                // limpando os intervalos de tempo do timer e do detona ralph
+                clearInterval(detonaRalph)
+                clearInterval(timerSeconds)
+
+                // Alterando display do modal e da gameInterface
+                document.getElementById('timeOutModal').style.display = 'flex'
+                document.getElementById('gameInterface').style.display = 'none'
+
+                // Alterando o valor do tempo para 60 segundos
+                document.getElementById('time').textContent = '60'
+
+            } else if(document.getElementById('lives').textContent === 'X0'){
+
+                // limpando os intervalos de tempo do timer e do detona ralph
+                clearInterval(detonaRalph)
+                clearInterval(timerSeconds)
+
+                // Alterando display do modal e da gameInterface
+                document.getElementById('modalGamerOverPlay').style.display = 'flex'
+                document.getElementById('gameInterface').style.display = 'none'
+
+                // Alterando o valor do tempo para 60 segundos
+                document.getElementById('time').textContent = '60'
+            }
+        },10)
+}
 
 
 /* forma alternativa
