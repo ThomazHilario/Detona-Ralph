@@ -28,17 +28,21 @@ export const MainGame = () => {
             const user = JSON.parse(localStorage.getItem('@user'))
 
             async function getPlayer(){
-                // Montando referencia ao banco de dados
-                const docRef = doc(database,'Ranking','RankingUsers')
+                try {
+                    // Montando referencia ao banco de dados
+                    const docRef = doc(database,'Ranking','RankingUsers')
 
-                // Fazendo a requisicao ao banco de dados
-                const docSnap = await getDoc(docRef)
+                    // Fazendo a requisicao ao banco de dados
+                    const docSnap = await getDoc(docRef)
 
-                // Buscando player logado
-                const player = docSnap.data().Users.filter(element => element.id === user.uid)
+                    // Buscando player logado
+                    const player = docSnap.data().Users.filter(element => element.id === user.uid)
 
-                // Salvando na state player, o player logado
-                setPlayer(player[0])
+                    // Salvando na state player, o player logado
+                    setPlayer(player[0])
+                } catch (e) {
+                    console.log(e)
+                }
             }
 
             // Executando getPlayer

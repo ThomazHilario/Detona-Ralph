@@ -9,17 +9,22 @@ export const Ranking = () => {
     useEffect(() => {
         // loadPlayers
         async function loadPlayers(){
-            // Montando referencia ao banco de dados
-            const docRef = doc(database,'Ranking','RankingUsers')
+            try {
+                // Montando referencia ao banco de dados
+                const docRef = doc(database,'Ranking','RankingUsers')
 
-            // Fazendo a requisicao ao banco de dados
-            const docSnap = await getDoc(docRef)
+                // Fazendo a requisicao ao banco de dados
+                const docSnap = await getDoc(docRef)
 
-            // organizando array por ordem crescente de pontos
-            const rankingArray = docSnap.data().Users.sort((a,b) => b.points - a.points)
+                // organizando array por ordem crescente de pontos
+                const rankingArray = docSnap.data().Users.sort((a,b) => b.points - a.points)
 
-            // Salvando na state players
-            setPlayers(rankingArray)
+                // Salvando na state players
+                setPlayers(rankingArray)  
+                
+            } catch (e) {
+                console.log(e)
+            }
         }
 
         // Executando loadPlayers
