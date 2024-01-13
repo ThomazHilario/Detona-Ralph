@@ -245,7 +245,7 @@ function ModalGamerOverPlay({points, setLives, setPoints,player,setPlayer}){
             <div id='containerBtn'>
                 {/* startGame */}
                 <button className='buttonCss' onClick={startPlayAgain}>Play Again</button>
-                <Link className='buttonCss' to='/ranking' onClick={savePoints}>Ranking</Link>
+                <Link className='buttonCss' to='/ranking' target='blank' onClick={savePoints}>Ranking</Link>
             </div>
         </div>
     )
