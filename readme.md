@@ -9,7 +9,7 @@
 * Jogo desenvolvido usando React, no qual o usuário poderá jogar sem logar, ou com login, caso ele jogue com login, a sua pontuação estará no ranking de pontuação do jogo.
 
 ## Link do Jogo:
-[Link do jogo:](detona-ralph-beryl.vercel.app)
+[playGame](https://detona-ralph-dun.vercel.app)
 
 ## Executar o projeto para testes:
 * Clona-lo em sua máquina.
