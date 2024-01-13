@@ -189,6 +189,22 @@ function ModalGamerOverPlay({points, setLives, setPoints,player,setPlayer}){
         }
     }
 
+    // savePoints
+    function savePoints(){
+            // Caso tenha @user na localStorage
+            if(localStorage.getItem('@user') !== null){
+                // Salvando os pontos dp player
+                player.points = points
+    
+                // Setando na state player
+                setPlayer(player)
+                
+                // Salvando no banco de dados
+                savePointsPlayer()
+            }
+    }
+
+    // Recomecando o jogo
     function startPlayAgain(){
         // Caso tenha @user na localStorage
         if(localStorage.getItem('@user') !== null){
@@ -216,6 +232,7 @@ function ModalGamerOverPlay({points, setLives, setPoints,player,setPlayer}){
         startGame()
     }
 
+
     return(
         <div id='modalGamerOverPlay'>
             {/* Titulo */}
@@ -228,7 +245,7 @@ function ModalGamerOverPlay({points, setLives, setPoints,player,setPlayer}){
             <div id='containerBtn'>
                 {/* startGame */}
                 <button className='buttonCss' onClick={startPlayAgain}>Play Again</button>
-                <Link className='buttonCss' to='/ranking' target='_blank'>Ranking</Link>
+                <Link className='buttonCss' to='/ranking' target='_blank' onClick={savePoints}>Ranking</Link>
             </div>
         </div>
     )
