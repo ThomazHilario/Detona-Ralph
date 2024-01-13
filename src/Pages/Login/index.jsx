@@ -6,31 +6,7 @@ import { signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth'
 
 export const Login = () => {
 
-    // Verificando se o usuario ainda esta logado
-    useEffect(() => {
-
-        // Função de verificação
-        function loginAuth(){
-            onAuthStateChanged(auth,(user) => {
-                if(user){
-
-                    // Alterando a state loading
-                    setLoading(false)
-
-                    return navigate('/game')
-                } else{
-
-                    // Alterando a state loading
-                    setLoading(false)
-
-                    return false
-                }
-            })
-        }
-
-        // Executando loginAuth
-        loginAuth()
-    },[])
+   
 
     // navigate
     const navigate = useNavigate()

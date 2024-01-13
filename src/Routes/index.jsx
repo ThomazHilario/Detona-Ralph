@@ -12,7 +12,7 @@ export const RoutesPage = () => {
                 <Route path='/' element={ <Home/> } />
                 <Route path='/login' element = { <Login/> }/>
                 <Route path='/game' element={ <MainGame/> }/>
-
+                <Route path='/ranking' element={ <Ranking/> }/>
             </Routes>
         </BrowserRouter>
     )
