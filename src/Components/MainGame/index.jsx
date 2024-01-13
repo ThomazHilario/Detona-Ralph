@@ -118,6 +118,7 @@ export const MainGame = () => {
                 // Alterando display do modal e da gameInterface
                 document.getElementById('timeOutModal').style.display = 'flex'
                 document.getElementById('gameInterface').style.display = 'none'
+    
             } else if(document.getElementById('lives').textContent === 'X0'){
     
                 // limpando os intervalos de tempo do timer e do detona ralph
