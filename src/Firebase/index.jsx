@@ -20,5 +20,8 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
+// Conexão com banco de dados
 export const database = getFirestore(app)
+
+// Conexão com authenticador do firebase
 export const auth = getAuth(app)

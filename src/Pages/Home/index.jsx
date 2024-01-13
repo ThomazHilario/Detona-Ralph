@@ -3,8 +3,9 @@ import {Link, useNavigate} from 'react-router-dom'
 import { database, auth } from '../../Firebase'
 import { createUserWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth'
 import { doc, setDoc, getDoc } from 'firebase/firestore'
-import { toast } from 'react-toastify'
 import './home.css'
+
+
 export const Home = () => {
 
     // Verificando se o usuario ainda esta logado

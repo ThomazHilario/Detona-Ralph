@@ -1,9 +1,12 @@
 import {useContext} from 'react'
 import { Context } from '../../Context'
 import './header.css'
+
+// Img do player
 import player from '../../images/player.png'
+
 export const Header = () => {
-    const {points, timer, lives} = useContext(Context)
+    const {points, lives} = useContext(Context)
     return(
         <header>
             <div className='infoGame'>

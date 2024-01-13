@@ -1,11 +1,14 @@
 import {useState, createContext } from 'react'
 
-// context
+// Context
 export const Context = createContext(null)
 
+// Component ContextProvider
 export const ContextProvider = ({ children }) => {
+    // state global - points
     const [points, setPoints] = useState(0)
-    const [timer, setTimer] = useState(60)
+
+    // state global - lives
     const [lives, setLives] = useState(3)
 
     return(
