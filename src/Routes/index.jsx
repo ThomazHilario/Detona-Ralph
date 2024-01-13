@@ -10,6 +10,8 @@ export const RoutesPage = () => {
         <BrowserRouter>
             <Routes>
                 <Route path='/' element={ <MainGame/> } />
+
+                <Route path='/ranking' element = { <Ranking/> }/>
             </Routes>
         </BrowserRouter>
     )
