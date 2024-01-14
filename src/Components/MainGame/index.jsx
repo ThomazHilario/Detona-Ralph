@@ -144,7 +144,11 @@ export const MainGame = () => {
 
         document.getElementById('gameInterface').style.display = 'grid'
         
+        // Comecando o jogo
         startGame()
+
+        // Deixando em tela cheia
+        document.querySelector('body').requestFullscreen()
     }
 
     // logOutGame
@@ -293,6 +297,9 @@ function ModalGamerOverPlay({points, setLives, setPoints,player,setPlayer, start
 
         // Startando o jogo novamente
         startGame()
+
+        // Deixando em tela cheia
+        document.querySelector('body').requestFullscreen()
     }
 
     return(
@@ -307,7 +314,6 @@ function ModalGamerOverPlay({points, setLives, setPoints,player,setPlayer, start
             <div id='containerBtn'>
                 {/* startGame */}
                 <button className='buttonCss' onClick={startPlayAgain}>Play Again</button>
-                <button className='buttonCss' onClick={passando}>next</button>
                 <Link className='buttonCss' to='/ranking' target='blank' onClick={savePoints}>Ranking</Link>
             </div>
         </div>
