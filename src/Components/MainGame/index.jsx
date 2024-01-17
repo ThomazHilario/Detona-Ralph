@@ -12,6 +12,7 @@ import { toast } from 'react-toastify'
 
 // icon logOut
 import { BiSolidLogOut } from "react-icons/bi";
+import { IoSettingsOutline } from "react-icons/io5";
 
 const gameSettings = {
     gameSpeed:600,
@@ -48,8 +49,6 @@ export const MainGame = () => {
 
             // Executando getPlayer
             getPlayer()
-        }else{
-            document.getElementById('btnlogOutGame').style.display = 'none'
         }
 
     },[])
@@ -143,6 +142,9 @@ export const MainGame = () => {
         document.getElementById('modalStart').style.display = 'none'
 
         document.getElementById('gameInterface').style.display = 'grid'
+
+        // Alterando o display do settins_modal
+        document.getElementById('settings_modal').style.display = 'none'
         
         // Comecando o jogo
         startGame()
@@ -151,27 +153,19 @@ export const MainGame = () => {
         document.querySelector('body').requestFullscreen()
     }
 
-    // logOutGame
-    async function logOutGame(button){
-        try {
-            // Alterando o display do button
-            button.style.display = 'none'
+    // Abrindo modal de configuracao
+    function openSettingsModal(){
 
-            // Deslogando a conta
-            await signOut(auth)
+        // Alterando display de acordo com a condicao
+        if(document.getElementById('settings_modal').style.display === 'flex'){
+            document.getElementById('settings_modal').style.display = 'none'
 
-            // Removendo dados da localStorage
-            if(localStorage.getItem('@user') !== null){
-                localStorage.removeItem('@user')
-            }
+        } else{
+            document.getElementById('settings_modal').style.display = 'flex'
 
-            // Notificação de saida
-            toast.success(player.name + ' saiu')
-            
-        } catch (e) {
-            console.log(e)
-        }
-    }
+        }   
+        
+    }    
 
     return(
         <>
@@ -222,9 +216,53 @@ export const MainGame = () => {
                 </div>
 
                 {/* logoutGame */}
-                <button id='btnlogOutGame' onClick={(e) => logOutGame(e.target)}><BiSolidLogOut size={100} color='white'/></button>
+                <button id='btnlogOutGame' onClick={openSettingsModal}><IoSettingsOutline size={100} color='white'/></button>
+
+                <SettingsModal/>
             </main>
         </>    
+    )
+}
+
+// Componente SettingsModal
+function SettingsModal(){
+
+    // logOutGame
+    async function logOutGame(){
+        try {
+
+            // Deslogando a conta
+            await signOut(auth)
+
+            // Removendo dados da localStorage
+            if(localStorage.getItem('@user') !== null){
+                localStorage.removeItem('@user')
+            }
+
+            // Notificação de saida
+            toast.success(player.name + ' saiu')           
+            
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+    function verifyAction(button){
+        // Caso o textContent do button seja Sair
+        if(button.textContent === 'Sair'){
+
+            // Alterando o conteudo do button para Login
+            button.textContent = 'Login'
+
+            // Saindo da conta
+            logOutGame()
+        }
+    }
+
+    return(
+        <div id="settings_modal">
+            <button onClick={(e) => verifyAction(e.target)}className='btnlogOut'>Sair</button>
+        </div>
     )
 }
 
@@ -294,6 +332,9 @@ function ModalGamerOverPlay({points, setLives, setPoints,player,setPlayer, start
 
         // Alterando o display da gameInterface
         document.getElementById('gameInterface').style.display = 'grid'
+
+        // Alterando o display do settins_modal
+        document.getElementById('settings_modal').style.display = 'none'
 
         // Startando o jogo novamente
         startGame()
