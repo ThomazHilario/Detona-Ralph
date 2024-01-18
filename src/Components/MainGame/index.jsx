@@ -49,6 +49,19 @@ export const MainGame = () => {
 
             // Executando getPlayer
             getPlayer()
+        }else{
+            // Alterando o conteudo do button
+            document.querySelector('.btnlogOut').textContent = 'Login'
+
+            // Pegando os campos de login
+            const campo_login = document.querySelectorAll('.campo_login')
+
+            // Percorrendo cada campo
+            campo_login.forEach(campo => {
+
+                // Alterando o display dos campos para block
+                campo.style.display = 'block'
+            })
         }
 
     },[])
@@ -247,21 +260,64 @@ function SettingsModal(){
         }
     }
 
-    function verifyAction(button){
+    // Pegando elementos
+    function getElements(tag){
+        // Capturando elemento por meio do parametro passado.
+        const campo_login = document.querySelectorAll(tag)
+
+        // Percorrendo cada elemento.
+        campo_login.forEach(campo => {
+
+            // Verificando o display dos elementos e alterando seu display.
+            if(campo.style.display === 'block'){
+                campo.style.display = 'none'
+            } else{
+                campo.style.display = 'block'
+            }
+        })
+
+    }
+
+    function verifyAction(e){
         // Caso o textContent do button seja Sair
-        if(button.textContent === 'Sair'){
+        if(e.target.textContent === 'Sair'){
+            // Cancela o envio do formulario
+            e.preventDefault()
 
             // Alterando o conteudo do button para Login
-            button.textContent = 'Login'
+            e.target.textContent = 'Login'
+
+            // Buscando elementos para alterar o display
+            getElements('.campo_login')
 
             // Saindo da conta
             logOutGame()
+        }else{
+            // Cancelando envio do formulario
+            e.preventDefault()
+
+            // Buscando elementos para alterar o display
+            getElements('.campo_login')
         }
     }
 
     return(
         <div id="settings_modal">
-            <button onClick={(e) => verifyAction(e.target)}className='btnlogOut'>Sair</button>
+
+            {/* LoginUser */}
+            <form>
+                <div className='campo_login'>
+                    <label>E-mail</label>
+                    <input type='text'/>
+                </div>
+
+                <div className='campo_login'>
+                    <label>Password:</label>
+                    <input type='password'/>
+                </div>
+
+                <button onClick={verifyAction}className='btnlogOut'>Sair</button>
+            </form>
         </div>
     )
 }

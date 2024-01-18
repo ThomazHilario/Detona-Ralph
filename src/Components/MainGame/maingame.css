@@ -121,14 +121,14 @@
     align-items: center;
     gap: 20px;
 
-    height: 80px;
     width: 400px;
+    padding: 10px;
     border-radius: 8px;
 
     background-color: brown;
 }
 
-#settings_modal > button{
+#settings_modal > form > button{
     width: 80px;
     height: 25px;
 
@@ -138,11 +138,39 @@
     font-weight: bold;
 
     cursor: pointer;
+    display: block;
+    margin: auto;
+
+    margin-top: 10px;
 }
 
-#settings_modal > .btnlogin{
+.campo_login{
+    padding: 5px;
+    margin-bottom: 5px;
+
     display: none;
 }
+
+.campo_login > label{
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.campo_login > input{
+    border: 0px;
+    border-radius: 5px;
+
+    height: 25px;
+    width: 200px;
+
+    margin-top: 5px;
+    padding-left: 5px;
+
+    font-weight: bold;
+    display: block;
+}
+
+
 
 .painel{
     height: 125px;
