@@ -3,7 +3,7 @@ import { Header } from '../Header'
 import { useContext, useState, useEffect } from 'react'
 import { Context } from '../../Context'
 import { database, auth } from '../../Firebase'
-import { signOut } from 'firebase/auth'
+import { signOut, signInWithEmailAndPassword } from 'firebase/auth'
 import { doc, getDoc, updateDoc } from 'firebase/firestore'
 import { Link } from 'react-router-dom'
 
@@ -240,7 +240,13 @@ export const MainGame = () => {
 // Componente SettingsModal
 function SettingsModal(){
 
-    // logOutGame
+    // state - e-mail
+    const [email, setEmail] = useState('')
+
+    // state - password
+    const [password, setPassword] = useState('')
+
+    // logOutGame - sair da conta
     async function logOutGame(){
         try {
 
@@ -255,6 +261,23 @@ function SettingsModal(){
             // Notificação de saida
             toast.success(player.name + ' saiu')           
             
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+    // logInGame - entrar na conta
+    async function logInGame(){
+        try {
+            // Logando e armazenando informacoes na vaariavel user
+            const user = await signInWithEmailAndPassword(auth, email, password)
+
+            // Salvando na localStorage
+            localStorage.setItem('@user',JSON.stringify(user.user))
+
+            // Atualizando a pagina
+            setTimeout(() => window.location.reload(),1000)
+
         } catch (e) {
             console.log(e)
         }
@@ -296,8 +319,14 @@ function SettingsModal(){
             // Cancelando envio do formulario
             e.preventDefault()
 
+            // Alterando conteudo do button
+            e.target.textContent = 'Sair'
+
             // Buscando elementos para alterar o display
             getElements('.campo_login')
+
+            // Logando na conta
+            logInGame()
         }
     }
 
@@ -308,12 +337,12 @@ function SettingsModal(){
             <form>
                 <div className='campo_login'>
                     <label>E-mail</label>
-                    <input type='text'/>
+                    <input type='text' value={email} onChange={(e) => setEmail(e.target.value)}/>
                 </div>
 
                 <div className='campo_login'>
                     <label>Password:</label>
-                    <input type='password'/>
+                    <input type='password' value={password} onChange={(e) => setPassword(e.target.value)}/>
                 </div>
 
                 <button onClick={verifyAction}className='btnlogOut'>Sair</button>
