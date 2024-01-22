@@ -39,8 +39,10 @@ export const MainGame = () => {
                     // Buscando player logado
                     const player = docSnap.data().Users.filter(element => element.id === user.uid)
 
+                    
                     // Salvando na state player, o player logado
                     setPlayer(player[0])
+                    
                 } catch (e) {
                     console.log(e)
                 }
@@ -48,6 +50,7 @@ export const MainGame = () => {
 
             // Executando getPlayer
             getPlayer()
+            
         }else{
             // Alterando o conteudo do button
             document.querySelector('.btnlogOut').textContent = 'Login'
@@ -372,7 +375,6 @@ function ModalGamerOverPlay({points, setLives, setPoints,player,setPlayer, start
             await updateDoc(docRef,{
                 Users:usersRanking
             })
-
         } catch (e) {
             console.log(e)
         }
