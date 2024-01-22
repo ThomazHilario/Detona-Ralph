@@ -395,7 +395,6 @@ function ModalGamerOverPlay({points, setLives, setPoints,player,setPlayer, start
 
     // Recomecando o jogo
     function startPlayAgain(){
-        console.log(player)
         // Caso tenha @user na localStorage
         if(localStorage.getItem('@user') !== null){
             // Salvando os pontos do player
