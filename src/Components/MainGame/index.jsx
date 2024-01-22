@@ -11,7 +11,6 @@ import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
 // icon logOut
-import { BiSolidLogOut } from "react-icons/bi";
 import { IoSettingsOutline } from "react-icons/io5";
 
 const gameSettings = {
@@ -396,9 +395,10 @@ function ModalGamerOverPlay({points, setLives, setPoints,player,setPlayer, start
 
     // Recomecando o jogo
     function startPlayAgain(){
+        console.log(player)
         // Caso tenha @user na localStorage
         if(localStorage.getItem('@user') !== null){
-            // Salvando os pontos dp player
+            // Salvando os pontos do player
             player.points = points
 
             // Setando na state player
