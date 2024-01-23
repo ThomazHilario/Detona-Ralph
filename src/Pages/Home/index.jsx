@@ -1,5 +1,8 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import {Link, useNavigate} from 'react-router-dom'
+import { useForm } from 'react-hook-form'
+import { z } from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { database, auth } from '../../Firebase'
 import { createUserWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth'
 import { doc, setDoc, getDoc } from 'firebase/firestore'
@@ -7,6 +10,9 @@ import './home.css'
 
 
 export const Home = () => {
+
+    // Buscando register e handleSubmit
+    const {register, handleSubmit} = useForm()
 
     // Verificando se o usuario ainda esta logado
     useEffect(() => {
@@ -41,16 +47,10 @@ export const Home = () => {
     const navigate = useNavigate()
 
     //state - nickname
-    const [nickname, setNickname] = useState('')
-
-    //state - email
-    const [email, setEmail] = useState('')
-
-    //state - password
-    const [password, setPassword] = useState('')
+    const nicknameRef = useRef()
 
     // rankingUser - Cadastrando usuario ao ranking
-    async function rankingUser(uid){
+    async function rankingUser(uid,nickname){
         try {
 
             // Pegando a referência ao banco de dados do RankingUsers
@@ -77,12 +77,12 @@ export const Home = () => {
 
 
     // Cadastrando usuario ao banco
-    async function singIn(e){
+    async function singIn({email, password}){
         try {
-            // cancelando o envio do formulario
-            e.preventDefault()
+            // Salvando nickname na variavel
+            const nickname = nicknameRef.current?.value
 
-            if(nickname !== ''){
+            if(nicknameRef !== ''){
                 // Cadastrando usuario ao banco de dados
                 const user = await createUserWithEmailAndPassword(auth, email, password) 
 
@@ -93,7 +93,7 @@ export const Home = () => {
                 localStorage.setItem('@user',JSON.stringify(user.user))
 
                 // Adicionando usuario ao Ranking
-                rankingUser(user.user.uid)
+                rankingUser(user.user.uid,nickname)
 
                 // Navegando ate o jogo
                 navigate('/game')
@@ -113,25 +113,25 @@ export const Home = () => {
         <main id="home">
 
             { loading === false ? 
-                <form id="cadastro">
+                <form id="cadastro" onSubmit={handleSubmit(singIn)}>
 
                     <div>
                         <label>Nickname:</label>
-                        <input type="text"  value={nickname} onChange={(e) => setNickname(e.target.value)}/>
+                        <input type="text"  ref={nicknameRef}/>
                     </div>
 
                     <div>
                         <label>Email:</label>
-                        <input type="text"  value={email} onChange={(e) => setEmail(e.target.value)}/>
+                        <input type="text"  {...register('email')}/>
                     </div>
 
                     <div>
                         <label>Password:</label>
-                        <input type="password"  value={password} onChange={(e) => setPassword(e.target.value)}/>
+                        <input type="password"  {...register('password')}/>
                     </div>
 
                     <div>
-                        <button onClick={singIn}>Cadastrar</button>
+                        <button>Cadastrar</button>
                         <Link to='/login' className='navigateLogin'>Já possui uma conta? <strong>Entrar agora</strong></Link>
                         <Link to='/game' className='playGame'>Jogar sem Cadastro</Link>
                     </div>
