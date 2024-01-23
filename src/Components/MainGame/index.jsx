@@ -14,7 +14,7 @@ import { toast } from 'react-toastify'
 import { IoSettingsOutline } from "react-icons/io5";
 
 const gameSettings = {
-    gameSpeed:600,
+    gameSpeed:500,
     stop:false,
 
 }
@@ -106,8 +106,7 @@ export const MainGame = () => {
         })
 
         // Escolhendo um painel para colocar o ralph
-        paineis[Math.floor(Math.random() * 9)].classList.add('ralph')
-
+        paineis[Math.floor(Math.random() * paineis.length)].classList.add('ralph')
     }
 
     // StartGame
