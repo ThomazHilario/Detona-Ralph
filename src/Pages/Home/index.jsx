@@ -97,6 +97,8 @@ export const Home = () => {
 
                 // Navegando ate o jogo
                 navigate('/game')
+
+                setTimeout(() => window.location.reload(),1000)
             }else{
                 alert('preencha o campo de nickname')   
             }
