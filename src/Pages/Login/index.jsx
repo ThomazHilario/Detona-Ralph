@@ -1,10 +1,27 @@
-import './login.css'
 import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+
+// hook-form
+import { useForm } from 'react-hook-form'
+import { z } from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
+
+const schema = z.object({
+    email:z.string(),
+    password:z.string()
+})
+
+// Firebase
 import {auth} from '../../Firebase'
 import { signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth'
 
+// css
+import './login.css'
+
 export default function Login(){
+    // register e handleSubmit
+    const {register, handleSubmit} = useForm({resolver:zodResolver(schema)})
+
 
     // Verificando se o usuario ainda esta logado
     useEffect(() => {
@@ -38,18 +55,9 @@ export default function Login(){
     // state - loading
     const [loading,setLoading] = useState(true)
 
-    // state - email
-    const [email, setEmail] = useState('')
-
-    // state - password
-    const [password, setPassword] = useState('')
-
     // singInUser - logando usuario
-    async function singInUser(e){
+    async function singInUser({email, password}){
         try {
-
-            // Cancelando envio do formulario
-            e.preventDefault()
 
             // Logando usuario
             const user = await signInWithEmailAndPassword(auth, email, password)      
@@ -68,20 +76,20 @@ export default function Login(){
     return(
         <main className="mainLogin">
             {loading === false ? 
-                <form>
+                <form onSubmit={handleSubmit(singInUser)}>
 
                     <div>
                         <label>Email:</label>
-                        <input type="text" value={email} onChange={(e) => setEmail(e.target.value)}/>
+                        <input type="text" {...register('email')}/>
                     </div>
 
                     <div>
                         <label>Password:</label>
-                        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
+                        <input type="password" {...register('password')}/>
                     </div>
 
                     <div>
-                        <button onClick={singInUser}>Entrar</button>
+                        <button>Entrar</button>
                         <Link to='/' className='navigateHome'>Não possui uma conta ? <strong>Cadastre-se</strong></Link>
                     </div>
 
